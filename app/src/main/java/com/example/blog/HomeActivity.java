@@ -5,6 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,11 +18,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class HomeActivity extends AppCompatActivity {
 
     TextView welcomeTextView;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +37,9 @@ public class HomeActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         downloadDataUser(user.getUid());
+
+
+
     }
 
     public void downloadDataUser(String idUser){
@@ -53,10 +63,24 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    public  void readBlog(View view){
+        Intent intent = new Intent(HomeActivity.this,readBlog.class);
+        startActivity(intent);
+    }
+
+
+
     public void logout(View view){
 
         mAuth.signOut();
         Intent intent = new Intent(HomeActivity.this,MainActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void createBlog(View view){
+
+        Intent intent = new Intent(HomeActivity.this,CreateBlogActivity.class);
         startActivity(intent);
 
     }
